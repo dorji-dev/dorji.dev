@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { Alegreya } from "next/font/google";
 import "./globals.css";
+import clsx from "clsx";
+import MainLayout from "@/components/layout/main-layout";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const alegreya = Alegreya({ subsets: ["latin"], variable: "--alegreya" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={clsx(GeistSans.className, alegreya.variable)}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <MainLayout>{children}</MainLayout>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
